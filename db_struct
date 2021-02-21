@@ -1,0 +1,21 @@
+CREATE TABLE public.positions
+(
+    positionid serial,
+    positionname character(50) COLLATE pg_catalog."default",
+    salary double precision,
+    CONSTRAINT positions_pkey PRIMARY KEY (positionid),
+    CONSTRAINT positions_positionname_key UNIQUE (positionname)
+)
+
+CREATE TABLE public.employees
+(
+    employeeid serial,
+    firstname character varying(50) COLLATE pg_catalog."default",
+    lastname character varying(50) COLLATE pg_catalog."default",
+    positionid integer,
+    CONSTRAINT employees_pkey PRIMARY KEY (employeeid),
+    CONSTRAINT fk_employee_position FOREIGN KEY (positionid)
+        REFERENCES public.positions (positionid) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
